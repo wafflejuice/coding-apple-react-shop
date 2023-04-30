@@ -43,7 +43,7 @@ function App() {
             </Container>
           </>
         } />
-        <Route path='/detail' element={<Detail />} />
+        <Route path='/detail/:id' element={<Detail shoesList={shoesList} />} />
         <Route path='/about' element={<About />} >
           <Route path='member' element={<p>member info</p>} />
           <Route path='location' element={<p>location info</p>} />
