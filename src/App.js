@@ -8,11 +8,12 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import data from './data.js';
 import { useState } from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link, Outlet, Route, Routes, useNavigate } from 'react-router-dom';
 import Detail from './pages/Detail.js';
 
 function App() {
   let [shoesList] = useState(data)
+  let navigate = useNavigate();
 
   return (
     <div className="App">
@@ -21,8 +22,8 @@ function App() {
         <Container>
           <Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Cart</Nav.Link>
+            <Nav.Link onClick={() => { navigate('/') }}>Home</Nav.Link>
+            <Nav.Link onClick={() => { navigate('/detail') }}>Detail</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -43,10 +44,37 @@ function App() {
           </>
         } />
         <Route path='/detail' element={<Detail />} />
+        <Route path='/about' element={<About />} >
+          <Route path='member' element={<p>member info</p>} />
+          <Route path='location' element={<p>location info</p>} />
+        </Route>
+        <Route path='/event' element={<EventPage />}>
+          <Route path='one' element={<p>First delivery</p>}></Route>
+          <Route path='two' element={<p>Birthday coupon</p>}></Route>
+        </Route>
+        <Route path='*' element={<p>nope</p>} />
       </Routes>
 
     </div>
   );
+}
+
+function EventPage() {
+  return (
+    <div>
+      <h4>Today's event</h4>
+      <Outlet></Outlet>
+    </div>
+  );
+}
+
+function About() {
+  return (
+    <div>
+      <h4>company info</h4>
+      <Outlet></Outlet>
+    </div>
+  )
 }
 
 function Card(props) {
