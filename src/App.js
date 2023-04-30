@@ -8,12 +8,15 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import data from './data.js';
 import { useState } from 'react';
+import { Link, Route, Routes } from 'react-router-dom';
+import Detail from './pages/Detail.js';
 
 function App() {
   let [shoesList] = useState(data)
 
   return (
     <div className="App">
+
       <Navbar bg="light" variant="light">
         <Container>
           <Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
@@ -24,17 +27,24 @@ function App() {
         </Container>
       </Navbar>
 
-      <div className='main-bg'></div>
+      <Routes>
+        <Route path='/' element={
+          <>
+            <div className='main-bg'></div>
+            <Container fluid>
+              <Row>
+                {
+                  shoesList.map((shoes) => {
+                    return < Card shoes={shoes} />
+                  })
+                }
+              </Row>
+            </Container>
+          </>
+        } />
+        <Route path='/detail' element={<Detail />} />
+      </Routes>
 
-      <Container fluid>
-        <Row>
-          {
-            shoesList.map((shoes) => {
-              return < Card shoes={shoes} />
-            })
-          }
-        </Row>
-      </Container>
     </div>
   );
 }
