@@ -6,8 +6,12 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import data from './data.js';
+import { useState } from 'react';
 
 function App() {
+  let [shoesList] = useState(data)
+
   return (
     <div className="App">
       <Navbar bg="light" variant="light">
@@ -24,26 +28,25 @@ function App() {
 
       <Container fluid>
         <Row>
-          <Col>
-            <img src={`${process.env.PUBLIC_URL}/img/shoes1.jpg`} width='80%'></img>
-            <h4>product name</h4>
-            <p>product detail</p>
-          </Col>
-          <Col>
-            <img src={`${process.env.PUBLIC_URL}/img/shoes2.jpg`} width='80%'></img>
-            <h4>product name</h4>
-            <p>product detail</p>
-          </Col>
-          <Col>
-            <img src={`${process.env.PUBLIC_URL}/img/shoes3.jpg`} width='80%'></img>
-            <h4>product name</h4>
-            <p>product detail</p>
-          </Col>
+          {
+            shoesList.map((shoes) => {
+              return < Card shoes={shoes} />
+            })
+          }
         </Row>
       </Container>
     </div>
   );
 }
 
+function Card(props) {
+  return (
+    <Col>
+      <img src={`${process.env.PUBLIC_URL}/img/shoes${props.shoes.id}.jpg`} width='80%'></img>
+      <h4>{props.shoes.title}</h4>
+      <p>{props.shoes.content}</p>
+    </Col>
+  );
+}
 
 export default App;
