@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { Link, Outlet, Route, Routes, useNavigate } from 'react-router-dom';
 import Detail from './pages/Detail.js';
 import axios from 'axios';
+import Cart from './pages/Cart.js';
 
 function App() {
   let [shoesList, setShoesList] = useState(data)
@@ -25,6 +26,7 @@ function App() {
           <Nav className="me-auto">
             <Nav.Link onClick={() => { navigate('/') }}>Home</Nav.Link>
             <Nav.Link onClick={() => { navigate('/detail') }}>Detail</Nav.Link>
+            <Nav.Link onClick={() => { navigate('/cart') }}>Cart</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -36,8 +38,8 @@ function App() {
             <Container fluid>
               <Row>
                 {
-                  shoesList.map((shoes) => {
-                    return < Card shoes={shoes} />
+                  shoesList.map((shoes, i) => {
+                    return < Card shoes={shoes} key={i} />
                   })
                 }
               </Row>
@@ -52,6 +54,7 @@ function App() {
           </>
         } />
         <Route path='/detail/:id' element={<Detail shoesList={shoesList} />} />
+        <Route path='/cart' element={<Cart />} />
         <Route path='/about' element={<About />} >
           <Route path='member' element={<p>member info</p>} />
           <Route path='location' element={<p>location info</p>} />
