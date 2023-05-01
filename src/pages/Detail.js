@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Nav from 'react-bootstrap/Nav';
 
 function Detail(props) {
     let [discountBannerVisible, setDiscountBannerVisible] = useState(true);
 
     let [count, setCount] = useState(0);
     let [userInput, setUserInput] = useState('');
+
+    let [tab, setTab] = useState(0);
 
     useEffect(() => {
         setTimeout(() => { setDiscountBannerVisible(false) }, 2000);
@@ -45,8 +48,27 @@ function Detail(props) {
                     <button className="btn btn-danger">order</button>
                 </div>
             </div>
+
+            <Nav variant="tabs" defaultActiveKey="link0">
+                <Nav.Item>
+                    <Nav.Link onClick={() => { setTab(0) }} eventKey="link0">button0</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link onClick={() => { setTab(1) }} eventKey="link1">button1</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link onClick={() => { setTab(2) }} eventKey="link2">button2</Nav.Link>
+                </Nav.Item>
+            </Nav>
+
+            <TabContent tab={tab} />
         </div>
     );
+}
+
+function TabContent({ tab }) {
+    let tabContents = [<div>content0</div>, <div>content1</div>, <div>content2</div>]
+    return tabContents[tab]
 }
 
 export default Detail
