@@ -42,6 +42,9 @@ function App() {
                     return < Card shoes={shoes} key={i} />
                   })
                 }
+                <div>
+                  <p>recent watched: {JSON.parse(localStorage.getItem('watched'))}</p>
+                </div>
               </Row>
             </Container>
             <button onClick={() => {

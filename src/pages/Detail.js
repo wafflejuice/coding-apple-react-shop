@@ -34,6 +34,19 @@ function Detail(props) {
         }
     }, [userInput])
 
+    useEffect(() => {
+        if (localStorage.getItem('watched') == null) {
+            localStorage.setItem('watched', JSON.stringify([]))
+        }
+
+        let newWatched = JSON.parse(localStorage.getItem('watched'))
+        if (!newWatched.includes(id)) {
+            newWatched.unshift(id)
+        }
+
+        localStorage.setItem('watched', JSON.stringify(newWatched))
+    }, [])
+
     let { id } = useParams();
     let shoes = props.shoesList.find((shoes) => shoes.id == id)
 
