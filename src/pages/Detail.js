@@ -10,8 +10,18 @@ function Detail(props) {
 
     let [tab, setTab] = useState(0);
 
+    let [fadeIn, setFadeIn] = useState('');
+
     useEffect(() => {
         setTimeout(() => { setDiscountBannerVisible(false) }, 2000);
+    }, [])
+
+    useEffect(() => {
+        setFadeIn('end')
+
+        return () => {
+            setFadeIn('')
+        }
     }, [])
 
     useEffect(() => {
@@ -24,7 +34,7 @@ function Detail(props) {
     let shoe = props.shoesList.find((shoes) => shoes.id == id)
 
     return (
-        <div className="container">
+        <div className={`container start ${fadeIn}`}>
             {
                 discountBannerVisible ?
                     <div className="alert alert-warning">
@@ -67,8 +77,25 @@ function Detail(props) {
 }
 
 function TabContent({ tab }) {
-    let tabContents = [<div>content0</div>, <div>content1</div>, <div>content2</div>]
-    return tabContents[tab]
+    const tabContents = [<div>content0</div>, <div>content1</div>, <div>content2</div>]
+
+    let [fadeIn, setFadeIn] = useState('');
+    useEffect(() => {
+        let timeout = setTimeout(() => { setFadeIn('end') }, 100)
+
+        return () => {
+            clearTimeout(timeout)
+            setFadeIn('')
+        }
+    }, [tab])
+
+    return (
+        <div className={`start ${fadeIn}`}>
+            <div>
+                {tabContents[tab]}
+            </div>
+        </div>
+    );
 }
 
 export default Detail
